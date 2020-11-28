@@ -1,0 +1,18 @@
+.form {
+    margin: 0 auto;
+    width: 200px;
+    text-align: center;
+}
+
+.form h1 {
+    font-size: 80px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 5px;
+}
