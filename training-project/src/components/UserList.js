@@ -7,7 +7,8 @@ class UserList extends React.Component {
                 <tr key={i}>
                     <td>{e.title}</td>
                     <td>{e.post}</td>
-                    
+                    <td><button>Edit</button><br/><button onClick={()=>this.props.handleRemove(i)}>Delete</button></td>
+                    <td><button>^</button></td>
                 </tr>
             );
         })
@@ -20,6 +21,8 @@ class UserList extends React.Component {
                         <tr>
                             <th>Title</th>
                             <th>Posts</th>
+                            <th>Change</th>
+                            <th>Upvote/Downvote</th>
                         </tr>
                     </thead>
                     <tbody>

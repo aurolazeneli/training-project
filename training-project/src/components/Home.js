@@ -1,6 +1,6 @@
 import React from 'react';
 import UserList from './UserList';
-import UserForm from './UserPost';
+import UserPost from './UserPost';
 
 class Home extends React.Component {
     constructor() {
@@ -15,6 +15,7 @@ class Home extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleRemove = this.handleRemove.bind(this);
     }
 
     handleChange(event) {
@@ -28,6 +29,16 @@ class Home extends React.Component {
                 }
             }
         });
+    }
+    handleRemove(i){
+        this.setState(prevState =>({
+           users: prevState.users.filter((row,j)=>j!==i),
+        }));
+    }
+    handleEdit(i){
+        this.setState(prevState =>({
+           users: prevState.users.filter((row,j)=>j!==i),
+        }));
     }
 
     handleSubmit(event) {
@@ -45,16 +56,21 @@ class Home extends React.Component {
             };
         });
     }
+   
     
     render() {
         return (
             <div>
-                <UserForm
+                <UserPost
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     form={this.state.form}
                 />
-                <UserList users={this.state.users} />
+                <UserList 
+                handleRemove={this.handleRemove}
+                handleEdit={this.handleEdit}
+                users={this.state.users}
+                />
             </div>
         );
     }
