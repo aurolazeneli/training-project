@@ -26,6 +26,12 @@
     float: right;
 }
 
+.date{
+  margin-top: 0;
+  color: #424347;
+  font-size: smaller;
+}
+
 
 .form h2 {
     font-size: 20px;

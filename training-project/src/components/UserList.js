@@ -16,7 +16,7 @@ class UserList extends React.Component {
                      type="text"
                     
                      name="title"
-                    onChange={(event)=>this.props.handleEdit(event,"title",i,this.value)}/>:e.title}<br/><br/>{this.state.date.toLocaleDateString()}</td>
+                        onChange={(event)=>this.props.handleEdit(event,"title",i,this.value)}/>:e.title}<br/><br/><div className="date">{this.state.date.toLocaleDateString()}</div></td>
                     <td>{e.post}</td>
                    <td>{currentlyEditing?<button className="btn" onClick={this.props.stopEdit}>Save</button>:<button className="btn" onClick={()=>this.props.startEdit(i)} >Edit</button>}</td>
                     <td><button className="btn" onClick={()=>this.props.handleRemove(i)}>Delete</button></td>
