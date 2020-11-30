@@ -88,7 +88,7 @@ class Home extends React.Component {
         return (
 
             <div>
-                <div id="parent">What do you have in mind?<div id="border"></div></div>
+                <div id="parent">What's on your mind?<div id="border"></div></div>
                 <UserPost
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
