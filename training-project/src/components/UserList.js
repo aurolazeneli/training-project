@@ -1,31 +1,41 @@
 import React from 'react';
 
+
 class UserList extends React.Component {
-    state= {clicked: true}
+   state= {
+       date: new Date()}
     render() {
-        
+      
         const users = this.props.users.map((e, i) => {
-       
+          
+            const currentlyEditing = this.props.editIdx === i;
+            console.log(e);
             return (
                 <tr key={i}>
-                    <td>{e.title}</td>
+                    <td>{currentlyEditing ?<input value={e.title}
+                     type="text"
+                    
+                     name="title"
+                    onChange={(event)=>this.props.handleEdit(event,"title",i,this.value)}/>:e.title}<br/><br/>{this.state.date.toLocaleDateString()}</td>
                     <td>{e.post}</td>
-                    <td><button onClick={()=>this.props.handleEdit(i)}>Edit</button><br/>
-                        <button onClick={()=>this.props.handleRemove(i)}>Delete</button></td>
-                    <td><button onClick= {() => this.setState({clicked: !this.state.clicked})}>{ this.state.clicked? 'Upvote' : 'Downvote'}</button></td>
+                   <td>{currentlyEditing?<button className="btn" onClick={this.props.stopEdit}>Save</button>:<button className="btn" onClick={()=>this.props.startEdit(i)} >Edit</button>}</td>
+                    <td><button className="btn" onClick={()=>this.props.handleRemove(i)}>Delete</button></td>
+                    <td ><button className="btn" onClick={(i)=>this.props.vote(i)}>{this.props.clicked ? <i class="fa fa-chevron-up" aria-hidden="true"></i> : <i class="fa fa-chevron-down" aria-hidden="true"></i>}</button></td>
                 </tr>
             );
         })
 
         return (
-            <div>
-                <h2 className="form">List of Posts</h2>
-                <table className="form" >
+              
+            <div className="table-layout">
+                <h2 className="table1">List of Posts</h2>
+                <table className="table" >
                     <thead>
-                        <tr>
+                        <tr className="tr">
                             <th>Title</th>
                             <th>Posts</th>
-                            <th>Change</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                             <th>Upvote/Downvote</th>
                         </tr>
                     </thead>

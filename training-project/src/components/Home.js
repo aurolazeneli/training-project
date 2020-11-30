@@ -3,20 +3,26 @@ import UserList from './UserList';
 import UserPost from './UserPost';
 
 class Home extends React.Component {
-    constructor() {
-        super();
+
+    constructor(props) {
+        super(props);
         this.state = {
             users: [],
-            isLoading: true,
+            clicked: true,
+            editIdx: -1,
             form: {
                 title: '',
                 post: ''
             }
+
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
+        this.startEdit = this.startEdit.bind(this);
+        this.stopEditing = this.stopEditing.bind(this);
+        this.vote = this.vote.bind(this);
     }
 
     handleChange(event) {
@@ -26,20 +32,41 @@ class Home extends React.Component {
             return {
                 form: {
                     ...prevState.form,
-                    [name]: event.target.value
+                    [name]: event.target.value,
                 }
             }
         });
     }
-    handleRemove(i){
-        this.setState(prevState =>({
-           users: prevState.users.filter((row,j)=>j!==i),
+    startEdit = (i) => {
+        console.log('e sakte');
+        const editIdx = this.state.editIdx;
+        this.setState({ editIdx: i })
+        console.log(editIdx);
+    };
+
+    stopEditing = () => {
+        this.setState({ editIdx: -1 });
+    };
+
+    handleEdit = (event, name, i) => {
+
+        // const {value}= event.target;   
+        this.setState(prevState => ({
+            users: prevState.users.map((row, j) => j === i ? ({ ...row, [name]: event.target.value }) : row)
+        })
+        )
+    }
+    vote(event) {
+        // event.target.preventDefault;
+        this.setState(prevState => ({
+            clicked: !prevState.clicked
         }));
     }
-    handleEdit(i){
-        this.setState(prevState =>({
-           users: prevState.users.filter((row,j)=>j!==i),
-        }));
+    handleRemove(i) {
+        this.setState(prevState => (
+            {
+                users: prevState.users.filter((row, j) => j !== i),
+            }));
     }
 
     handleSubmit(event) {
@@ -57,20 +84,25 @@ class Home extends React.Component {
             };
         });
     }
-   
-    
     render() {
         return (
+
             <div>
+                <div id="parent">What do you have in mind?<div id="border"></div></div>
                 <UserPost
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     form={this.state.form}
                 />
-                <UserList 
-                handleRemove={this.handleRemove}
-                handleEdit={this.handleEdit}
-                users={this.state.users}
+                <UserList
+                    handleRemove={this.handleRemove}
+                    startEdit={this.handleEdit}
+                    stopEditing={this.stopEditing}
+                    handleEdit={this.handleEdit}
+                    editIdx={this.state.editIdx}
+                    clicked={this.state.clicked}
+                    vote={this.vote}
+                    users={this.state.users}
                 />
             </div>
         );

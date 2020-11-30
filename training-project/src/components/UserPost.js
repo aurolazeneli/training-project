@@ -3,10 +3,11 @@ import React from 'react';
 class UserPost extends React.Component {
     render() {
         return (
+            <div className="form-layout">
             <form className="form" onSubmit={this.props.handleSubmit}>
                 <h2>Create new post</h2>
                 <div>
-                    <label htmlFor="title">Title: </label>
+                    <label htmlFor="title">Title: </label><br/>
                     <input
                         type="text"
                         id="title"
@@ -17,16 +18,17 @@ class UserPost extends React.Component {
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="post">Post... </label>
+                <div className="texta">
+                    <label htmlFor="post">Post:</label><br/>
                     <textarea id="post" name="post" value={this.props.form.post}
                         onChange={this.props.handleChange}
                         placeholder="Happy New Year everyone!"
-                        required rows="4" cols="50">
+                        required rows="8" cols="40">
                     </textarea>
                 </div>
-                <button type="submit">Post</button>
+                <button className="sub" type="submit">Post</button>
             </form>
+            </div>
         );
     }
 }
